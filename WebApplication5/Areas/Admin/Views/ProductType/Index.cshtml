@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApplication5.Models.ProductType>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Product Type";
 }
 
 <br />  <br />  
@@ -11,5 +11,28 @@
             <div class="col-6 text-right">
                 <a asp-action="Create" class="btn btn-info">Create</a>
             </div>
+        </div>
+        <div>
+            <table class="table table-striped border">
+                <tr class="table-info">
+                    <th>
+                        @Html.DisplayNameFor(m=> m.Name)
+                    </th>
+                    <th></th>
+                    <td></td>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m=> item.Name)
+                        </td>
+                        <td>
+                            <partial name="_TableButtonPartial" model="item.Id" />
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
 
