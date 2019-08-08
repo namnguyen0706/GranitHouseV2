@@ -8,6 +8,7 @@ using WebApplication5.Models;
 
 namespace WebApplication5.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         public IActionResult Index()
