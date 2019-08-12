@@ -9,17 +9,16 @@ using WebApplication5.Models;
 namespace WebApplication5.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductTypeController : Controller
+    public class SpecialTagController : Controller
     {
         private readonly ApplicationDbContext _db;
-        public ProductTypeController(ApplicationDbContext db)
+        public SpecialTagController(ApplicationDbContext db)
         {
             _db = db;
         }
-
         public IActionResult Index()
         {
-            return View(_db.ProductTypes.ToList());
+            return View(_db.SpecialTags.ToList());
         }
 
         public IActionResult Create()
@@ -27,51 +26,50 @@ namespace WebApplication5.Areas.Admin.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductType productType)
+        public async Task<IActionResult> Create(SpecialTag specialTag)
         {
             if (ModelState.IsValid)
             {
-                _db.Add(productType);
+                _db.Add(specialTag);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(productType);
+            return View();
         }
 
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id== null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var productType = await _db.ProductTypes.FindAsync(id);
-            if (productType == null)
+            var specialTag = await _db.SpecialTags.FindAsync(id);
+            if (specialTag == null)
             {
                 return NotFound();
             }
-            return View(productType);
+            return View(specialTag);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,ProductType productType)
+        public async Task<IActionResult> Edit(int id, SpecialTag specialTag)
         {
-            if (id != productType.Id)
+            if (id != specialTag.Id)
             {
                 return NotFound();
             }
             if (ModelState.IsValid)
             {
-                _db.Update(productType);
+                _db.SpecialTags.Update(specialTag);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(productType);
+
+            return View(specialTag);
         }
 
 
@@ -81,12 +79,12 @@ namespace WebApplication5.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var productType = await _db.ProductTypes.FindAsync(id);
-            if (productType == null)
+            var specialTag = await _db.SpecialTags.FindAsync(id);
+            if (specialTag == null)
             {
                 return NotFound();
             }
-            return View(productType);
+            return View(specialTag);
         }
 
 
@@ -96,26 +94,27 @@ namespace WebApplication5.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var productType = await _db.ProductTypes.FindAsync(id);
-            if (productType == null)
+            var specialTag = await _db.SpecialTags.FindAsync(id);
+            if (specialTag == null)
             {
                 return NotFound();
             }
-            return View(productType);
+            return View(specialTag);
         }
-
 
         [HttpPost,ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var productType = await _db.ProductTypes.FindAsync(id);
-            _db.ProductTypes.Remove(productType);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var specialTag = await _db.SpecialTags.FindAsync(id);
+            _db.SpecialTags.Remove(specialTag);
             await _db.SaveChangesAsync();
-            
+
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }
