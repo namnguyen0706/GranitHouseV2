@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApplication5.Data;
 using WebApplication5.Models;
 
 namespace WebApplication5.Controllers
@@ -11,9 +13,25 @@ namespace WebApplication5.Controllers
     [Area("Customer")]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _db;
+
+        public HomeController( ApplicationDbContext db)
         {
-            return View();
+            _db = db;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var productList = await _db.Products.Include(m => m.ProductType).Include(m => m.SpecialTag).ToListAsync();
+            return View(productList);
+        }
+
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            var product = await _db.Products.Include(m => m.ProductType).Include(m => m.SpecialTag).Where(m => m.Id == id).FirstOrDefaultAsync();
+
+            return View(product);
         }
 
         public IActionResult Privacy()

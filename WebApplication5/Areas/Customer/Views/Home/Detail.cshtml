@@ -1,0 +1,81 @@
+﻿
+
+@model WebApplication5.Models.Product
+@using WebApplication5.Extensions
+
+
+<br />
+<h2 class="text-info">Product Detail</h2>
+<form method="post" >
+    <div class="p-4 border rounded row">
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Price" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ProductType"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ProductType.Name" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SpecialTag"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SpecialTag.Name" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ShadeColor"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ShadeColor" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    
+                </div>
+                <div class="col-8">
+                    <button type="submit" asp-route-id="@Model.Id" class="btn btn-primary form-control">Add to Bag</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-3">
+            <img src="@Model.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+            <br /><br />
+            @if (Model.Avaiable)
+            {
+                 <img src="~/images/ProductImage/download.jpg" width="50%"  />
+            }
+        </div>
+        <br />
+        <div class="form-group">
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
+
+
+
